@@ -202,11 +202,11 @@ class ConditionAND(ConditionBase):
     """AND Condition"""
     op = COND_AND
 
-    def __init__(self, sigma=None, op=None, val1=None, val2=None):
-        if sigma == None and op == None and val1 == None and val2 == None:    # no parameters given - initialize empty
+    def __init__(self, sigma=None, op=None, *args):
+        if sigma == None and op == None and len(args) == 0:    # no parameters given - initialize empty
             self.items = list()
         else:       # called by parser, use given values
-            self.items = [ val1, val2 ]
+            self.items = args
 
 class ConditionOR(ConditionAND):
     """OR Condition"""
@@ -259,14 +259,16 @@ def generateXOf(sigma, val, condclass):
     """
     if val.matched == "them":           # OR across all definitions
         cond = condclass()
-        for definition in sigma.definitions.values():
+        for name, definition in sigma.definitions.items():
+            if name == "timeframe":
+                continue
             cond.add(NodeSubexpression(sigma.parse_definition(definition)))
         return NodeSubexpression(cond)
     elif val.matched.find("*") > 0:     # OR across all matching definitions
         cond = condclass()
         reDefPat = re.compile("^" + val.matched.replace("*", ".*") + "$")
         for name, definition in sigma.definitions.items():
-            if reDefPat.match(name):
+            if name != "timeframe" and reDefPat.match(name):
                 cond.add(NodeSubexpression(sigma.parse_definition(definition)))
         return NodeSubexpression(cond)
     else:                               # OR across all items of definition
@@ -631,7 +633,7 @@ class SigmaAggregationParser(SimpleParser):
 
     def trans_fieldname(self, fieldname):
         """Translate field name into configured mapped name"""
-        mapped = self.config.get_fieldmapping(fieldname).resolve_fieldname(fieldname)
+        mapped = self.config.get_fieldmapping(fieldname).resolve_fieldname(fieldname, self.parser)
         if type(mapped) == str:
             return mapped
         else:
