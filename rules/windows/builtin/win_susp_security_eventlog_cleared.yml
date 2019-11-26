@@ -9,6 +9,7 @@ logsource:
     product: windows
     service: security
 detection:
+    timeframe: 10m
     selection:
         EventID:
             - 517
@@ -18,3 +19,4 @@ falsepositives:
     - Rollout of log collection agents (the setup routine often includes a reset of the local Eventlog)
     - System provisioning (system reset before the golden image creation)
 level: high
+

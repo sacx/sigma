@@ -444,7 +444,6 @@ class XPackWatcherBackend(ElasticsearchQuerystringBackend, MultiRuleOutputMixin)
         indices = sigmaparser.get_logsource().index
         # How many results to be returned. Usually 0 but for index action we need it.
         size = 0
-
         for condition in sigmaparser.condparsed:
             rulename = self.getRuleName(sigmaparser)
             result = self.generateNode(condition.parsedSearch)
@@ -507,9 +506,11 @@ class XPackWatcherBackend(ElasticsearchQuerystringBackend, MultiRuleOutputMixin)
                             }
                     alert_value_location = "by.buckets.0." + alert_value_location
                     agg_iter.append("by.buckets")
-            except KeyError:
+            except KeyError as ke:
+                print(ke)
                 alert_condition = {"not_eq": 0}
-            except AttributeError:
+            except AttributeError as ae:
+                print(ae)
                 alert_condition = {"not_eq": 0}
 
             if agg != {}:
