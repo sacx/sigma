@@ -10,13 +10,62 @@ from version 0.14.0.
 
 ### Added
 
-* sigma-uuid tool
+* LOGIQ Backend (logiq)
+
+### Fixed
+
+* Splunx XML rule name is now set to rule title
+
+## 0.16.0 - 2020-02-25
+
+### Added
+
+* Proxy field names to ECS mapping (ecs-proxy) configuration
+* False positives metadata to LimaCharlie backend
+* Additional aggregation capabilitied for es-dsl backend.
+* Azure log analytics rule backend (ala-rule)
+* SQL backend
+* Splunk Zeek sourcetype mapping config
+* sigma2attack script
+* Carbon Black backend and configuration
+* ArcSight ESM backend
+* Elasticsearch detection rule backend
+
+### Changed
+
+* Kibana object id is now Sigma rule id if available. Else
+  the old naming scheme is used.
+* sigma2misp: replacement of deprecated method usage.
+* Various configuration updates
+* Extended ArcSight mapping
+
+### Fixed
+
+* Fixed aggregation queries for Elastalert backend
+* Fixed aggregation queries for es-dsl backend
+* Backend and configuration lists are sorted.
+* Escaping in ala backend
+
+## 0.15.0 - 2019-12-06
+
+### Added
+
+* sigma-uuid tool for addition and check of Sigma rule identifiers
+* Default configurations
+* Restriction of compared rules in sigma-similarity
+* Regular expression support in es-dsl backend
+* LimaCharlie support for proxy rule category
+* Source distribution for PyPI
 
 ### Changed
 
 * Type errors are now ignored with -I
 
-## 0.14
+### Fixed
+
+* Removed wrong mapping of CommandLine field mapping in THOR config
+
+## 0.14 - 2019-11-10
 
 ### Added
 
@@ -39,10 +88,12 @@ from version 0.14.0.
 * Removed ProcessCommandLine mapping for Windows Security EventID 4688 in generic
   process creation log source configuration.
 
+## 0.13 - 2019-10-21
+
 ### Added
 
 * Index mappings for Sumologic
-* Malicious cmdlets in wdatp
+* Malicious cmdlets in mdatp
 * QRadar support for keyword searches
 * QRadar mapping improvements
 * QRadar field selection
@@ -70,13 +121,13 @@ from version 0.14.0.
 * Elasticsearch wildcard detection pattern
 * Aggregation on keyword field in es-dsl backend
 
-## 0.12.1
+## 0.12.1 - 2019-08-05
 
 ### Fixed
 
 * Missing build dependency
 
-## 0.12
+## 0.12 - 2019-08-01
 
 ### Added
 

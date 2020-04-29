@@ -11,16 +11,16 @@ logsource:
     category: proxy
 detection:
     selection:
-      UserAgent:
-        # XMRig  
+      c-useragent:
+        # XMRig
         - 'XMRig *'
         # CCMiner
         - 'ccminer*'
     condition: selection
 fields:
     - ClientIP
-    - URL
-    - UserAgent
+    - c-uri
+    - c-useragent
 falsepositives:
     - Unknown
 level: high
